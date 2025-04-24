@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { PiPlusCircle } from "react-icons/pi";
 import PokemonCard from "../components/comparisonPage/PokemonCard";
-import PokemonStats from "../components/comparisonPage/pokemonStats";
 import PokemonList from "../components/comparisonPage/PokemonList";
+import PokemonStats from "../components/comparisonPage/pokemonStats";
 
 export default function ComparisonPage({ data }: { data: unknown[] }) {
   const [openList, setOpenList] = useState<"left" | "right" | null>(null);
