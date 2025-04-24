@@ -25,7 +25,11 @@ const PokemonList = ({
       {data.map((pokemon) => (
         <div
           key={pokemon.id}
-          onClick={() => handleSelectPokemon(openList, pokemon)}
+          onClick={() => {
+            if (openList !== null) {
+              handleSelectPokemon(openList, pokemon);
+            }
+          }}
           className="min-w-[180px] bg-white shadow-lg rounded-lg p-4 flex-shrink-0 hover:scale-105 transition-transform duration-300 cursor-pointer"
         >
           <img

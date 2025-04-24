@@ -1,5 +1,3 @@
-// src/components/PokemonStats.tsx
-
 const PokemonStats = ({ pokemon }: { pokemon: any }) => (
   <div className="mt-4 text-center">
     <h3 className="text-lg font-semibold">Stats</h3>
