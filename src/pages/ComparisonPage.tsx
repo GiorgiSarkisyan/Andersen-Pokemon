@@ -1,5 +1,3 @@
-// src/pages/ComparisonPage.tsx
-
 import { useState } from "react";
 import { PiPlusCircle } from "react-icons/pi";
 import PokemonCard from "../components/comparisonPage/PokemonCard.tsx";
