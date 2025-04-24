@@ -1,6 +1,9 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import PokemonListPage from "./pages/PokemonListPage";
+import FavoritesPage from "./pages/FavoritesPage";
+import ComparisonPage from "./pages/ComparisonPage";
 
 const pokemons = [
   {
@@ -10,11 +13,11 @@ const pokemons = [
     src: "pikachu.png",
     height: "3ft",
     weight: "25kg",
-    stats: {
-      vitality: 100,
-      strength: 50,
-      agility: 50,
-    },
+    stats: [
+      { name: "vitality", value: 100 },
+      { name: "strength", value: 50 },
+      { name: "agility", value: 50 },
+    ],
   },
   {
     id: 2,
@@ -23,11 +26,11 @@ const pokemons = [
     src: "eevee.png",
     height: "3ft",
     weight: "25kg",
-    stats: {
-      vitality: 100,
-      strength: 50,
-      agility: 50,
-    },
+    stats: [
+      { name: "vitality", value: 100 },
+      { name: "strength", value: 50 },
+      { name: "agility", value: 50 },
+    ],
   },
   {
     id: 3,
@@ -36,11 +39,11 @@ const pokemons = [
     src: "charizard.png",
     height: "3ft",
     weight: "25kg",
-    stats: {
-      vitality: 100,
-      strength: 50,
-      agility: 50,
-    },
+    stats: [
+      { name: "vitality", value: 100 },
+      { name: "strength", value: 50 },
+      { name: "agility", value: 50 },
+    ],
   },
   {
     id: 4,
@@ -49,11 +52,11 @@ const pokemons = [
     src: "mimic.png",
     height: "3ft",
     weight: "25kg",
-    stats: {
-      vitality: 100,
-      strength: 50,
-      agility: 50,
-    },
+    stats: [
+      { name: "vitality", value: 100 },
+      { name: "strength", value: 50 },
+      { name: "agility", value: 50 },
+    ],
   },
   {
     id: 5,
@@ -62,25 +65,38 @@ const pokemons = [
     src: "mewtwo.png",
     height: "3ft",
     weight: "25kg",
-    stats: {
-      vitality: 100,
-      strength: 50,
-      agility: 50,
-    },
+    stats: [
+      { name: "vitality", value: 100 },
+      { name: "strength", value: 50 },
+      { name: "agility", value: 50 },
+    ],
   },
 ];
 
 function App() {
   return (
-    <div
-      className="bg-gray-200 bg-cover bg-center"
-      style={{ backgroundImage: 'url("/wallpaper.png")' }}
-    >
-      <div className="mx-auto max-w-[1280px]">
-        <Header />
-        <PokemonListPage data={pokemons} />
+    <BrowserRouter>
+      <div
+        className="bg-gray-200 bg-cover bg-center"
+        style={{ backgroundImage: 'url("/wallpaper.png")' }}
+      >
+        <div className="mx-auto max-w-[1280px]">
+          <Header />
+          <Routes>
+            <Route path="/" element={<PokemonListPage data={pokemons} />} />
+            <Route
+              path="/favorites"
+              element={<FavoritesPage data={pokemons} />}
+            />
+            <Route
+              path="/comparison"
+              element={<ComparisonPage data={pokemons} />}
+            />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
+
 export default App;
