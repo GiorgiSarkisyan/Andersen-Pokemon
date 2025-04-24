@@ -1,5 +1,3 @@
-// src/components/PokemonCard.tsx
-
 import { MdClose } from "react-icons/md";
 import { BiBookmark } from "react-icons/bi";
 

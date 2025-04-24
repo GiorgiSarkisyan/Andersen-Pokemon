@@ -1,5 +1,3 @@
-// src/components/PokemonList.tsx
-
 import { IoClose } from "react-icons/io5";
 
 const PokemonList = ({
