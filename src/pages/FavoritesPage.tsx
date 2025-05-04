@@ -4,7 +4,6 @@ import { MdArrowBackIos, MdArrowForwardIos, MdClose } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 export default function FavoritesPage({ data }: { data: any[] }) {
-  const [selectedPokemon, setSelectedPokemon] = useState<any | null>(null);
   const navigate = useNavigate();
 
   return (
