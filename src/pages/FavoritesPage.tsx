@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BiBookmark } from "react-icons/bi";
 import { MdArrowBackIos, MdArrowForwardIos, MdClose } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
