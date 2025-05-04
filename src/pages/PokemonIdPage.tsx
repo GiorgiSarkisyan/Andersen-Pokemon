@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { MdClose } from "react-icons/md";
 
 export default function PokemonIdPage({ data }: { data: any[] }) {
   const { id } = useParams();
