@@ -18,7 +18,7 @@ export default function ComparisonPage({ data }: { data: unknown[] }) {
   return (
     <section className="relative font-poppins">
       <div className="absolute inset-0 bg-zinc-500 opacity-70 z-0" />
-      <div className="min-h-[91.6vh] flex">
+      <div className="min-h-[90vh] flex">
         <div className="bg-white z-10 rounded-3xl w-full h-auto m-10 shadow-2xl border-[1px] border-gray-400 flex flex-col p-8">
           <div className="flex justify-between w-full select-none gap-5">
             {/* Left */}

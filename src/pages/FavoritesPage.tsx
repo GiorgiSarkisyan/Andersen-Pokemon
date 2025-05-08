@@ -1,14 +1,14 @@
-import { useState } from "react";
 import { BiBookmark } from "react-icons/bi";
 import { MdArrowBackIos, MdArrowForwardIos, MdClose } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 export default function FavoritesPage({ data }: { data: any[] }) {
-  const [selectedPokemon, setSelectedPokemon] = useState<any | null>(null);
+  const navigate = useNavigate();
 
   return (
     <section className="relative font-poppins">
       <div className="absolute inset-0 bg-zinc-500 opacity-70 z-0" />
-      <h1 className="text-center justify-center py-2 text-white font-poppins text-3xl relative z-10">
+      <h1 className="text-center justify-center py-[4.5px] text-white font-poppins text-2xl relative z-10">
         Favorites <br />
         Here you can find your Favorite Pokemons!
       </h1>
@@ -41,7 +41,7 @@ export default function FavoritesPage({ data }: { data: any[] }) {
 
               <div
                 className="absolute inset-0 bg-zinc bg-opacity-30 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all flex justify-center items-center cursor-pointer z-10"
-                onClick={() => setSelectedPokemon(pokemon)}
+                onClick={() => navigate(`/pokemon/${pokemon.id}`)}
               >
                 <span className="text-transparent text-xl font-semibold bg-clip-text bg-gradient-to-r from-red-500 via-yellow-400 via-green-400 via-blue-400 to-purple-500">
                   Show More
@@ -63,53 +63,6 @@ export default function FavoritesPage({ data }: { data: any[] }) {
           <MdArrowForwardIos size={20} />
         </button>
       </div>
-
-      {selectedPokemon && (
-        <div className="fixed inset-0 backdrop-blur-sm flex justify-center items-center z-50 px-4">
-          <div className="p-[4px] bg-gradient-to-r from-red-500 via-yellow-400 via-green-400 via-blue-400 to-purple-500 rounded-2xl max-w-xl w-full">
-            <div className="bg-white rounded-2xl p-8 relative">
-              <button
-                className="absolute top-3 right-3 text-zinc-600 hover:text-black cursor-pointer"
-                onClick={() => setSelectedPokemon(null)}
-              >
-                <MdClose size={24} />
-              </button>
-              <img
-                src={`/${selectedPokemon.src}`}
-                alt={selectedPokemon.name}
-                className="w-48 mx-auto mb-4"
-              />
-              <h2 className="text-2xl font-bold text-center capitalize mb-2">
-                {selectedPokemon.name}
-              </h2>
-              <div className="flex justify-around mt-8">
-                <div>
-                  <p>
-                    <strong>Type:</strong> {selectedPokemon.type}
-                  </p>
-                  <p>
-                    <strong>Weight:</strong> {selectedPokemon.weight}
-                  </p>
-                  <p>
-                    <strong>Height:</strong> {selectedPokemon.height}
-                  </p>
-                </div>
-                <div>
-                  <p>
-                    <strong>Health:</strong> {selectedPokemon.stats.vitality}
-                  </p>
-                  <p>
-                    <strong>Strength:</strong> {selectedPokemon.stats.strength}
-                  </p>
-                  <p>
-                    <strong>Agility:</strong> {selectedPokemon.stats.agility}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
