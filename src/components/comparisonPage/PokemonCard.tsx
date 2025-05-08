@@ -20,7 +20,7 @@ const PokemonCard = ({
       </div>
 
       <img
-        src={`/${pokemon.src}`}
+        src={pokemon.src}
         alt={pokemon.name}
         className="w-40 h-40 object-contain mx-auto"
       />
