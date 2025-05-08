@@ -1,13 +1,6 @@
-import { BiBookmark } from "react-icons/bi";
-import { MdArrowBackIos, MdArrowForwardIos, MdClose } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 
 export default function FavoritesPage() {
-  const navigate = useNavigate();
-  const favorites = useSelector((state: RootState) => state.pokemon);
-
   return (
     <section className="relative font-poppins">
       <div className="absolute inset-0 bg-zinc-500 opacity-70 z-0" />
@@ -16,7 +9,11 @@ export default function FavoritesPage() {
         Here you can find your Favorite Pokemons!
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-10 py-[14.5px] relative z-10">
+      <p>
+        Favorites page is out of work for a while, because of the REDUX
+        implementation
+      </p>
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-10 py-[14.5px] relative z-10">
         {favorites.length === 0 ? (
           <p className="text-white text-center col-span-full">
             No favorites yet.
@@ -59,7 +56,7 @@ export default function FavoritesPage() {
             </div>
           ))
         )}
-      </div>
+      </div> */}
 
       <div className="flex justify-center items-center z-10 relative">
         <button className="p-2 rounded-full hover:bg-zinc-300 text-white flex items-center justify-center cursor-pointer">
