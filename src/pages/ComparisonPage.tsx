@@ -19,7 +19,7 @@ export default function ComparisonPage() {
   const [leftPokemon, setLeftPokemon] = useState<Pokemon | null>(null);
   const [rightPokemon, setRightPokemon] = useState<Pokemon | null>(null);
 
-  const allPokemon = useSelector((state: RootState) => state.pokemon.data); // adjust based on your actual slice
+  const allPokemon = useSelector((state: RootState) => state.pokemon.data);
 
   const handleSelectPokemon = (side: "left" | "right", pokemon: Pokemon) => {
     if (side === "left") setLeftPokemon(pokemon);

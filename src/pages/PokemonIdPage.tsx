@@ -1,17 +1,16 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { fetchPokemons } from "../store/pokemonSlice"; // Assuming you have this fetch function in your slice
+import { fetchPokemons } from "../store/pokemonSlice";
 
 export default function PokemonIdPage() {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const { data, status, error } = useAppSelector((state) => state.pokemon);
 
-  // Fetch all Pokemons if not already fetched
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchPokemons(1)); // Fetch first page, adjust as necessary
+      dispatch(fetchPokemons(1));
     }
   }, [dispatch, status]);
 
