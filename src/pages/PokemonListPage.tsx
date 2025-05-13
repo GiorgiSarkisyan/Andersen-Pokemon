@@ -15,7 +15,7 @@ export default function PokemonListPage() {
 
   useEffect(() => {
     dispatch(fetchPokemons(currentPage));
-  }, [currentPage, dispatch]);
+  }, [dispatch]);
 
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
@@ -87,7 +87,7 @@ export default function PokemonListPage() {
         ))}
       </div>
 
-      <div className="flex justify-center items-center mt-[37px] z-10 relative space-x-4">
+      <div className="flex justify-center items-center mt-[25px] pb-[12px] z-10 relative gap-5">
         <button
           onClick={handlePrev}
           className="p-2 rounded-full bg-zinc-800 hover:bg-zinc-600 text-white flex items-center justify-center"
