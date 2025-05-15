@@ -2,10 +2,10 @@ import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdClose, MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
-import { removeFavorite } from "../store/favoritesSlice";
+import { Pokemon, removeFavorite } from "../store/favoritesSlice";
 
 export default function FavoritesPage() {
-  const favorites = useAppSelector((state) => state.favorites);
+  const favorites = useAppSelector((state) => state.favorites.favorites);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ export default function FavoritesPage() {
     startIndex + itemsPerPage
   );
 
-  const handleRemove = (id: string | number) => {
+  const handleRemove = (id: number) => {
     dispatch(removeFavorite(id));
   };
 
@@ -43,7 +43,7 @@ export default function FavoritesPage() {
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-10 py-[32.6px] relative z-10 h-[82.3vh]">
-            {currentFavorites.map((pokemon) => (
+            {currentFavorites.map((pokemon: Pokemon) => (
               <div
                 key={pokemon.id}
                 className="p-[3px] bg-gradient-to-r from-red-500 via-yellow-400 via-green-400 via-blue-400 to-purple-500 rounded-xl group h-[344px]"

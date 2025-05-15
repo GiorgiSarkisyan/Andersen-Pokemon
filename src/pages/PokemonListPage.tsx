@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { BiBookmark } from "react-icons/bi";
 import { MdArrowBackIos, MdArrowForwardIos, MdClose } from "react-icons/md";
 import { fetchPokemons } from "../store/pokemonSlice";
-import { addFavorite, removeFavorite } from "../store/favoritesSlice";
+import { addFavorite, Pokemon, removeFavorite } from "../store/favoritesSlice";
 
 export default function PokemonListPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { data, status, error } = useAppSelector((state) => state.pokemon);
-  const favorites = useAppSelector((state) => state.favorites);
+  const favorites = useAppSelector((state) => state.favorites.favorites);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
@@ -35,7 +35,7 @@ export default function PokemonListPage() {
 
   const isFavorite = (id: number) => favorites.some((fav) => fav.id === id);
 
-  const toggleFavorite = (pokemon) => {
+  const toggleFavorite = (pokemon: Pokemon) => {
     if (isFavorite(pokemon.id)) {
       dispatch(removeFavorite(pokemon.id));
     } else {
