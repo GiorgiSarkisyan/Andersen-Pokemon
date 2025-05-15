@@ -4,18 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { BiBookmark } from "react-icons/bi";
 import { MdArrowBackIos, MdArrowForwardIos, MdClose } from "react-icons/md";
 import { fetchPokemons } from "../store/pokemonSlice";
+import { addFavorite, Pokemon, removeFavorite } from "../store/favoritesSlice";
 
 export default function PokemonListPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { data, status, error } = useAppSelector((state) => state.pokemon);
+  const favorites = useAppSelector((state) => state.favorites.favorites);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
   useEffect(() => {
     dispatch(fetchPokemons(currentPage));
-  }, [dispatch]);
+  }, [dispatch, currentPage]);
 
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
@@ -29,6 +31,16 @@ export default function PokemonListPage() {
 
   const handleNext = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  };
+
+  const isFavorite = (id: number) => favorites.some((fav) => fav.id === id);
+
+  const toggleFavorite = (pokemon: Pokemon) => {
+    if (isFavorite(pokemon.id)) {
+      dispatch(removeFavorite(pokemon.id));
+    } else {
+      dispatch(addFavorite(pokemon));
+    }
   };
 
   if (status === "loading") {
@@ -56,10 +68,19 @@ export default function PokemonListPage() {
           >
             <div className="bg-white rounded-xl shadow-md p-5 relative overflow-hidden">
               <div className="absolute top-3 right-3 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity z-20">
-                <button className="text-zinc-600 cursor-pointer">
-                  <BiBookmark size={24} />
+                <button
+                  className="text-zinc-600 cursor-pointer"
+                  onClick={() => toggleFavorite(pokemon)}
+                >
+                  <BiBookmark
+                    size={24}
+                    className={isFavorite(pokemon.id) ? "text-blue-500" : ""}
+                  />
                 </button>
-                <button className="text-zinc-600 cursor-pointer">
+                <button
+                  className="text-zinc-600 cursor-pointer"
+                  onClick={() => dispatch(removeFavorite(pokemon.id))}
+                >
                   <MdClose size={24} />
                 </button>
               </div>
