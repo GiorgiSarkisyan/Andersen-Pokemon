@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import favoritesReducer from "./favoritesSlice";
 import pokemonReducer from "./pokemonSlice";
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     favorites: favoritesReducer,
     pokemon: pokemonReducer,
@@ -11,3 +11,5 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+export default store;
