@@ -9,10 +9,8 @@ export default function PokemonIdPage() {
   const { data, status, error } = useAppSelector((state) => state.pokemon);
 
   useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchPokemons(1));
-    }
-  }, [dispatch, status]);
+    dispatch(fetchPokemons(1));
+  }, [dispatch]);
 
   const pokemon = data.find((p) => p.id === Number(id));
 
@@ -24,7 +22,6 @@ export default function PokemonIdPage() {
       </div>
     );
   }
-
   if (status === "failed") {
     return <p className="text-center text-red-500">Error: {error}</p>;
   }
