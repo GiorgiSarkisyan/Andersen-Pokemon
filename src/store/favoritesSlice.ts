@@ -1,10 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface Pokemon {
+interface PokemonStats {
+  hp: number;
+  attack: number;
+  defense: number;
+  specialAttack: number;
+  specialDefense: number;
+  speed: number;
+}
+
+interface Pokemon {
   id: number;
   name: string;
-  type: string;
   src: string;
+  type: string;
+  stats: PokemonStats;
 }
 
 export interface FavoritesState {

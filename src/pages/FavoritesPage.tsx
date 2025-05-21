@@ -2,10 +2,30 @@ import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdClose, MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
-import { Pokemon, removeFavorite } from "../store/favoritesSlice";
+import { GrCompare } from "react-icons/gr";
+import { removeFavorite } from "../store/favoritesSlice";
+import { addPokemon, removePokemon } from "../store/compareSlice";
+
+interface PokemonStats {
+  hp: number;
+  attack: number;
+  defense: number;
+  specialAttack: number;
+  specialDefense: number;
+  speed: number;
+}
+
+interface Pokemon {
+  id: number;
+  name: string;
+  src: string;
+  type: string;
+  stats: PokemonStats;
+}
 
 export default function FavoritesPage() {
   const favorites = useAppSelector((state) => state.favorites.favorites);
+  const comparePokemons = useAppSelector((state) => state.compare.pokemons);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -32,6 +52,16 @@ export default function FavoritesPage() {
     if (currentPage > 1) setCurrentPage((prev) => prev - 1);
   };
 
+  const isInCompare = (id: number) => comparePokemons.some((p) => p.id === id);
+
+  const toggleCompare = (pokemon: Pokemon) => {
+    if (isInCompare(pokemon.id)) {
+      dispatch(removePokemon(pokemon.id));
+    } else {
+      dispatch(addPokemon(pokemon));
+    }
+  };
+
   return (
     <section className="relative font-poppins h-[90vh]">
       <div className="absolute inset-0 bg-zinc-500 opacity-70 z-0" />
@@ -55,6 +85,18 @@ export default function FavoritesPage() {
                       onClick={() => handleRemove(pokemon.id)}
                     >
                       <MdClose size={24} />
+                    </button>
+
+                    <button
+                      className="text-zinc-600 cursor-pointer"
+                      onClick={() => toggleCompare(pokemon)}
+                    >
+                      <GrCompare
+                        size={24}
+                        className={
+                          isInCompare(pokemon.id) ? "text-blue-500" : ""
+                        }
+                      />
                     </button>
                   </div>
 

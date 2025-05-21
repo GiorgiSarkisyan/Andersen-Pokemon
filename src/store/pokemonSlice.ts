@@ -1,20 +1,25 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { JSX } from "react/jsx-runtime";
 
-interface Stat {
-  name: string;
-  value: number;
+interface PokemonStats {
+  map(arg0: (stat: any) => JSX.Element): import("react").ReactNode;
+  hp: number;
+  attack: number;
+  defense: number;
+  specialAttack: number;
+  specialDefense: number;
+  speed: number;
+  weight: number;
+  height: number;
 }
 
-export interface Pokemon {
+interface Pokemon {
   id: number;
   name: string;
-  type: string;
   src: string;
-  height: number;
-  weight: number;
-  stats: Stat[];
+  type: string;
+  stats: PokemonStats;
 }
-
 interface PokemonState {
   data: Pokemon[];
   status: "idle" | "loading" | "succeeded" | "failed";
@@ -65,6 +70,27 @@ export const fetchPokemons = createAsyncThunk<Pokemon[], number>(
   }
 );
 
+export const fetchPokemonById = createAsyncThunk<Pokemon, number>(
+  "pokemon/fetchPokemonById",
+  async (id) => {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const data = await res.json();
+
+    return {
+      id: data.id,
+      name: data.name,
+      type: data.types.map((t: any) => t.type.name).join(", "),
+      src: data.sprites.front_default,
+      height: data.height,
+      weight: data.weight,
+      stats: data.stats.map((stat: any) => ({
+        name: stat.stat.name,
+        value: stat.base_stat,
+      })),
+    };
+  }
+);
+
 const pokemonSlice = createSlice({
   name: "pokemon",
   initialState,
@@ -73,9 +99,7 @@ const pokemonSlice = createSlice({
     builder
       .addCase(fetchPokemons.pending, (state) => {
         state.status = "loading";
-        state.data = [];
       })
-
       .addCase(
         fetchPokemons.fulfilled,
         (state, action: PayloadAction<Pokemon[]>) => {
@@ -84,6 +108,24 @@ const pokemonSlice = createSlice({
         }
       )
       .addCase(fetchPokemons.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "Something went wrong.";
+      })
+
+      .addCase(fetchPokemonById.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(
+        fetchPokemonById.fulfilled,
+        (state, action: PayloadAction<Pokemon>) => {
+          state.status = "succeeded";
+          const exists = state.data.find((p) => p.id === action.payload.id);
+          if (!exists) {
+            state.data.push(action.payload);
+          }
+        }
+      )
+      .addCase(fetchPokemonById.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "Something went wrong.";
       });

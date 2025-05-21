@@ -11,7 +11,7 @@ const PokemonList = ({
   handleSelectPokemon: (side: "left" | "right", pokemon: any) => void;
   setOpenList: React.Dispatch<React.SetStateAction<"left" | "right" | null>>;
 }) => (
-  <div className="mt-10 bg-gray-100 rounded-xl p-4 relative">
+  <div className="mt-10 bg-gray-100 rounded-xl p-4 relative max-w-[1130px]">
     <div className="flex justify-between items-center mb-4">
       <h3 className="text-xl font-semibold">Choose your Pokémon</h3>
       <button onClick={() => setOpenList(null)}>
@@ -19,7 +19,7 @@ const PokemonList = ({
       </button>
     </div>
 
-    <div className="flex overflow-x-auto space-x-4 pb-2">
+    <div className="flex overflow-x-auto pb-2">
       {data.map((pokemon) => (
         <div
           key={pokemon.id}
