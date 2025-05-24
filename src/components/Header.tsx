@@ -5,7 +5,7 @@ export default function Header() {
 
   return (
     <header className="bg-gradient-to-tl from-amber-500 to-yellow-400 w-full select-none flex justify-between px-20 h-[10dvh] items-center">
-      <h1 className="text-5xl font-bold cursor-pointer font-dancing text-white">
+      <h1 className="text-5xl font-bold cursor-pointer text-white font-dancing">
         <Link to="/">PokeStat</Link>
       </h1>
       <div>
