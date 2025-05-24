@@ -5,6 +5,7 @@ import { MdClose, MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import { GrCompare } from "react-icons/gr";
 import { removeFavorite } from "../store/favoritesSlice";
 import { addPokemon, removePokemon } from "../store/compareSlice";
+import { motion } from "framer-motion";
 
 interface PokemonStats {
   hp: number;
@@ -74,9 +75,14 @@ export default function FavoritesPage() {
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-10 py-[32.6px] relative z-10 h-[82.3vh]">
             {currentFavorites.map((pokemon: Pokemon) => (
-              <div
+              <motion.div
                 key={pokemon.id}
-                className="p-[3px] bg-gradient-to-r from-red-500 via-yellow-400 via-green-400 via-blue-400 to-purple-500 rounded-xl group h-[344px]"
+                className="p-[3px] bg-gradient-to-r from-red-500 via-yellow-400 via-green-400 via-blue-400 to-purple-500 rounded-xl group h-[344px] cursor-pointer"
+                whileHover={{
+                  scale: 1.03,
+                  transition: { type: "spring", stiffness: 300, damping: 20 },
+                }}
+                initial={{ rotateX: 0, rotateY: 0, scale: 1 }}
               >
                 <div className="bg-white rounded-xl shadow-md p-5 relative overflow-hidden">
                   <div className="absolute top-3 right-3 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity z-20">
@@ -119,7 +125,7 @@ export default function FavoritesPage() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
