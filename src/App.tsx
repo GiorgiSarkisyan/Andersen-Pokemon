@@ -5,8 +5,17 @@ import PokemonListPage from "./pages/PokemonListPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import ComparisonPage from "./pages/ComparisonPage";
 import PokemonIdPage from "./pages/PokemonIdPage";
+import { useAppDispatch } from "./store/hooks";
+import { useEffect } from "react";
+import { fetchPokemons } from "./store/pokemonSlice";
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPokemons(1));
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <div

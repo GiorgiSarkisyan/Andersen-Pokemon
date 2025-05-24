@@ -1,23 +1,58 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
+import {
+  addPokemon,
+  removePokemon,
+  selectComparePokemons,
+} from "../store/compareSlice";
+
 import { useNavigate } from "react-router-dom";
 import { BiBookmark } from "react-icons/bi";
-import { MdArrowBackIos, MdArrowForwardIos, MdClose } from "react-icons/md";
-import { fetchPokemons } from "../store/pokemonSlice";
-import { addFavorite, Pokemon, removeFavorite } from "../store/favoritesSlice";
+import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
+import { addFavorite, removeFavorite } from "../store/favoritesSlice";
+import { GrCompare } from "react-icons/gr";
+
+interface PokemonStats {
+  hp: number;
+  attack: number;
+  defense: number;
+  specialAttack: number;
+  specialDefense: number;
+  speed: number;
+  weight: number;
+  height: number;
+}
+
+interface Pokemon {
+  id: number;
+  name: string;
+  src: string;
+  type: string;
+  stats: PokemonStats;
+}
 
 export default function PokemonListPage() {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  const comparePokemons = useAppSelector(selectComparePokemons);
   const { data, status, error } = useAppSelector((state) => state.pokemon);
   const favorites = useAppSelector((state) => state.favorites.favorites);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const isInCompare = (id: number) => comparePokemons.some((p) => p.id === id);
+
+  const toggleCompare = (pokemon: Pokemon) => {
+    if (isInCompare(pokemon.id)) {
+      dispatch(removePokemon(pokemon.id));
+    } else {
+      if (comparePokemons.length < 2) {
+        dispatch(addPokemon(pokemon));
+      } else {
+        alert("You can only compare 2 Pokémon at a time.");
+      }
+    }
+  };
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
-
-  useEffect(() => {
-    dispatch(fetchPokemons(currentPage));
-  }, [dispatch, currentPage]);
 
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
@@ -79,9 +114,12 @@ export default function PokemonListPage() {
                 </button>
                 <button
                   className="text-zinc-600 cursor-pointer"
-                  onClick={() => dispatch(removeFavorite(pokemon.id))}
+                  onClick={() => toggleCompare(pokemon)}
                 >
-                  <MdClose size={24} />
+                  <GrCompare
+                    size={24}
+                    className={isInCompare(pokemon.id) ? "text-blue-500" : ""}
+                  />
                 </button>
               </div>
 
